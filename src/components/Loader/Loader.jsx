@@ -1,16 +1,18 @@
-import { Dna } from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 import { LoaderStyled } from './Loader.styled';
 
 const Loader = () => {
   return (
     <LoaderStyled>
-      <Dna
-        visible={true}
+      <ThreeDots
         height="80"
         width="80"
-        ariaLabel="dna-loading"
+        radius="9"
+        color="#4fa94d"
+        ariaLabel="three-dots-loading"
         wrapperStyle={{}}
-        wrapperClass="dna-wrapper"
+        wrapperClassName=""
+        visible={true}
       />
     </LoaderStyled>
   );

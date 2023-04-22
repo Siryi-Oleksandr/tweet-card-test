@@ -8,10 +8,10 @@ import {
   Line,
   Tweet,
 } from './CardItem.styled';
+import { pallete } from '../../helpers/variables';
 
 import Avatar from 'components/Avatar';
 import Logo from 'components/Logo';
-import Button from 'components/Button';
 import { Btn } from 'components/Button/Button.styled';
 
 function CardItem() {
@@ -37,7 +37,7 @@ function CardItem() {
         {isFollowing ? (
           <Btn
             type="button"
-            style={{ backgroundColor: '#5CD3A8' }}
+            style={{ backgroundColor: pallete.accent }}
             onClick={toggleFollow}
           >
             Following

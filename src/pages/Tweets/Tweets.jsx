@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as API from '../../services/api';
 import Loader from 'components/Loader/Loader';
+import CardItem from 'components/CardItem/CardItem';
 
 function Tweets() {
   const [tweets, setTweets] = useState(null);
@@ -37,7 +38,7 @@ function Tweets() {
       <button type="button" onClick={handleGoBack}>
         GO back
       </button>
-      Tweets
+      <CardItem />
     </div>
   );
 }
