@@ -9,7 +9,7 @@ export const Btn = styled.button`
   border: none;
   outline: none;
   border-radius: 10px;
-  background: #ebd8ff;
+  background-color: #ebd8ff;
   box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
 
   font-family: 'Montserrat';
@@ -19,14 +19,14 @@ export const Btn = styled.button`
   line-height: 22px;
 
   text-transform: uppercase;
+  transform: scale(1);
 
   color: #373737;
   cursor: pointer;
 
   transition: box-shadow 250ms ease-in-out, transform 250ms ease-in-out;
 
-  &:hover,
-  &:focus {
+  &:hover {
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
       rgba(0, 0, 0, 0.22) 0px 15px 12px;
     transform: scale(1.03);
