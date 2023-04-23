@@ -7,18 +7,20 @@ import {
   InfoSection,
   Line,
   Tweet,
-} from './CardItem.styled';
+} from './UderItem.styled';
 import { pallete } from '../../helpers/variables';
 
 import Avatar from 'components/Avatar';
 import Logo from 'components/Logo';
 import { Btn } from 'components/Button/Button.styled';
 
-function CardItem() {
-  const [isFollowing, setIsFollowing] = useState(false);
+function UserItem({ userInfo }) {
+  // const [isFollowing, setIsFollowing] = useState(false);
+
+  const { avatar, followers, following, id, tweets, user } = userInfo;
 
   const toggleFollow = () => {
-    setIsFollowing(prevState => !prevState);
+    console.log('change follow func');
   };
 
   return (
@@ -30,11 +32,11 @@ function CardItem() {
       <InfoSection>
         <Line />
         <AvatarWrapper>
-          <Avatar />
+          <Avatar avatar={avatar} userName={user} />
         </AvatarWrapper>
-        <Tweet>777 Tweets</Tweet>
-        <Followers>100,400 Followers</Followers>
-        {isFollowing ? (
+        <Tweet>{tweets} Tweets</Tweet>
+        <Followers>{followers} Followers</Followers>
+        {following ? (
           <Btn
             type="button"
             style={{ backgroundColor: pallete.accent }}
@@ -52,4 +54,4 @@ function CardItem() {
   );
 }
 
-export default CardItem;
+export default UserItem;

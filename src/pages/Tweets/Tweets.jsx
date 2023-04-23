@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as API from '../../services/api';
 import Loader from 'components/Loader/Loader';
-import CardItem from 'components/CardItem/CardItem';
 
 function Tweets() {
   const [tweets, setTweets] = useState(null);
@@ -12,7 +11,7 @@ function Tweets() {
 
   useEffect(() => {
     setStatus('pending');
-    API.getAllTweets()
+    API.getAllUsers()
       .then(data => {
         if (data?.length) {
           setStatus('resolved');
@@ -33,12 +32,14 @@ function Tweets() {
     return <Loader />;
   }
 
+  console.log(tweets);
+
   return (
     <div>
       <button type="button" onClick={handleGoBack}>
         GO back
       </button>
-      <CardItem />
+      {/* <CardItem /> */}
     </div>
   );
 }

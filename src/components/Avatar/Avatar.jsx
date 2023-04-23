@@ -1,11 +1,11 @@
 import React from 'react';
 import { Circle } from './Avatar.styled';
-import avatar from '../../images/avatar.png';
+// import avatar from '../../images/avatar.png';
 
-function Avatar() {
+function Avatar({ avatar, userName }) {
   return (
     <Circle>
-      <img src={avatar} alt="user avatar" />
+      <img src={avatar} alt={userName} />
     </Circle>
   );
 }
