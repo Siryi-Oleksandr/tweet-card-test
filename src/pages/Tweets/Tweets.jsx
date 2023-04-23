@@ -7,6 +7,7 @@ import Error from 'components/Error';
 import toast from 'react-hot-toast';
 import { BtnLoadMore } from 'components/Buttons/BtnLoadMore';
 import { BtnGoBack } from 'components/Buttons/BtnGoBack';
+import Filter from 'components/Filter/Filter';
 
 const perPage = 4;
 
@@ -16,6 +17,7 @@ function Tweets() {
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
+  const [filter, setFilter] = useState('show all');
 
   const navigate = useNavigate();
 
@@ -66,11 +68,16 @@ function Tweets() {
     setPage(prevPage => prevPage + 1);
   };
 
+  const handleFilterChange = state => {
+    console.log('😎', state);
+  };
+
   const availablePages = totalPages > page;
 
   return (
     <div>
       <BtnGoBack onGoBack={handleGoBack} />
+      <Filter onFilterChange={handleFilterChange} />
       {status === 'pending' && <Loader />}
       {status !== 'rejected' && <UsersList users={users} />}
       {status === 'rejected' && <Error error={error.message} />}
