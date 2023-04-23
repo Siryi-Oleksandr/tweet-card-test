@@ -30,7 +30,7 @@ export const AvatarWrapper = styled.div`
 
   width: 80px;
   height: 80px;
-  background-color: #5736a3;
+  background-color: transparent;
 `;
 
 export const InfoSection = styled.section`
@@ -69,9 +69,23 @@ export const Line = styled.hr`
     inset 0px -1.71846px 3.43693px #ae7be3, inset 0px 3.43693px 2.5777px #fbf8ff;
 `;
 
-export const Tweet = styled.p`
-  margin-top: 62px;
+export const UserName = styled.p`
+  margin-top: 42px;
+  max-width: 340px;
+  height: 24px;
+  /* overflow-x: hidden; */
 
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 20px;
+  line-height: calc(24 / 20);
+  text-transform: uppercase;
+
+  color: ${pallete.priority};
+`;
+
+export const Tweet = styled.p`
+  margin-top: 16px;
   font-family: 'Montserrat';
   font-weight: 500;
   font-size: 20px;
@@ -83,7 +97,7 @@ export const Tweet = styled.p`
 
 export const Followers = styled.p`
   margin-top: 16px;
-  margin-bottom: 26px;
+  margin-bottom: 20px;
   font-family: 'Montserrat';
   font-weight: 500;
   font-size: 20px;

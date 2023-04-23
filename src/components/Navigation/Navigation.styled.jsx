@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { pallete } from '../../helpers/variables';
 
 export const Header = styled.header`
   display: flex;
@@ -24,6 +25,6 @@ export const Link = styled(NavLink)`
 
   &.active {
     color: white;
-    background-color: orangered;
+    background-color: ${pallete.accent};
   }
 `;

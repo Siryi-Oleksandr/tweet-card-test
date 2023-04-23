@@ -32,3 +32,28 @@ export const Btn = styled.button`
     transform: scale(1.03);
   }
 `;
+
+export const BtnGoBack = styled.button`
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: (20/ 16);
+
+  color: #373737;
+  cursor: pointer;
+
+  transition: transform 250ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;

@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as API from '../../services/api';
 import Loader from 'components/Loader/Loader';
+import UsersList from 'components/UsersList/UsersList';
+import { BiArrowBack } from 'react-icons/bi';
+import { BtnGoBack } from 'components/Button/Button.styled';
 
 function Tweets() {
-  const [tweets, setTweets] = useState(null);
+  const [users, setUsers] = useState(null);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -15,7 +18,7 @@ function Tweets() {
       .then(data => {
         if (data?.length) {
           setStatus('resolved');
-          setTweets(data);
+          setUsers(data);
         }
       })
       .catch(error => {
@@ -28,18 +31,17 @@ function Tweets() {
     navigate('/');
   };
 
-  if (!tweets) {
+  if (!users) {
     return <Loader />;
   }
 
-  console.log(tweets);
-
   return (
     <div>
-      <button type="button" onClick={handleGoBack}>
-        GO back
-      </button>
-      {/* <CardItem /> */}
+      <BtnGoBack type="button" onClick={handleGoBack}>
+        <BiArrowBack size="1.5em" />
+        Go back
+      </BtnGoBack>
+      <UsersList users={users} />
     </div>
   );
 }

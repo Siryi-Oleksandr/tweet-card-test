@@ -13,15 +13,15 @@ export async function getAllUsers() {
   }
 }
 
-// export const fetchContacts = createAsyncThunk(
-//   'contacts/fetchAll',
-//   async (_, thunkAPI) => {
-//     try {
-//       const response = await axios.get('/contacts');
-//       return response.data;
-//     } catch (e) {
-//       toast.error(`Something went wrong! ${e.message}`);
-//       return thunkAPI.rejectWithValue(e.message);
-//     }
-//   }
-// );
+export async function editUser(data) {
+  try {
+    const response = await axios.put(`/users/${data.id}`, {
+      followers: data.followers,
+      following: data.following,
+    });
+    return response.data;
+  } catch (error) {
+    toast.error('Something went wrong 😥!');
+    console.error(error);
+  }
+}

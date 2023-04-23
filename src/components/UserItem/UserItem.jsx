@@ -7,20 +7,31 @@ import {
   InfoSection,
   Line,
   Tweet,
+  UserName,
 } from './UderItem.styled';
 import { pallete } from '../../helpers/variables';
+import { formatFollowers } from '../../helpers/formatFollowers';
+import * as API from '../../services/api';
 
 import Avatar from 'components/Avatar';
 import Logo from 'components/Logo';
 import { Btn } from 'components/Button/Button.styled';
 
 function UserItem({ userInfo }) {
-  // const [isFollowing, setIsFollowing] = useState(false);
+  const { avatar, id, followers, following, tweets, user } = userInfo;
+  const [followersState, setFollowersState] = useState(followers);
+  const [followingState, setFollowingState] = useState(following);
 
-  const { avatar, followers, following, id, tweets, user } = userInfo;
+  const subscribe = () => {
+    setFollowersState(prev => prev + 1);
+    setFollowingState(prev => !prev);
+    API.editUser({ id, followers: followers + 1, following: true });
+  };
 
-  const toggleFollow = () => {
-    console.log('change follow func');
+  const unsubscribe = () => {
+    setFollowersState(prev => prev - 1);
+    setFollowingState(prev => !prev);
+    API.editUser({ id, followers: followers - 1, following: false });
   };
 
   return (
@@ -34,18 +45,19 @@ function UserItem({ userInfo }) {
         <AvatarWrapper>
           <Avatar avatar={avatar} userName={user} />
         </AvatarWrapper>
+        <UserName>{user}</UserName>
         <Tweet>{tweets} Tweets</Tweet>
-        <Followers>{followers} Followers</Followers>
-        {following ? (
+        <Followers>{formatFollowers(followersState)} Followers</Followers>
+        {followingState ? (
           <Btn
             type="button"
             style={{ backgroundColor: pallete.accent }}
-            onClick={toggleFollow}
+            onClick={unsubscribe}
           >
             Following
           </Btn>
         ) : (
-          <Btn type="button" onClick={toggleFollow}>
+          <Btn type="button" onClick={subscribe}>
             Follow
           </Btn>
         )}

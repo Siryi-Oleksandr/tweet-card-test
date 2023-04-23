@@ -5,6 +5,7 @@ export const Circle = styled.div`
   height: 80px;
   border-radius: 50%;
   border: 8px solid #ebd8ff;
+  overflow: hidden;
 
   background: transparent;
   /* box-shadow: 0px 4.39163px 4.39163px rgba(0, 0, 0, 0.06),
