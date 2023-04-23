@@ -22,6 +22,14 @@ function Tweets() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    API.getUsersFollowing().then(data => {
+      if (data?.length) {
+        console.log('super following users', data);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
     // get all numbers of users
     API.getAllUsers()
       .then(data => {
@@ -36,29 +44,108 @@ function Tweets() {
 
   useEffect(() => {
     setStatus('pending');
-    API.getUsers(page)
-      .then(data => {
-        if (data?.length) {
-          if (page === 1) {
-            setUsers(data);
-            setStatus('resolved');
-          } else {
-            setUsers(prev => [...prev, ...data]);
-            setStatus('resolved');
-          }
-        }
-        if (data?.length === 0) {
-          setUsers(prev => prev);
-          toast.success("Unfortunately you don't have any tweets yet!");
-          setStatus('resolved');
-        }
-      })
-      .catch(error => {
-        toast.error('Something went wrong 😥!');
-        setError(error);
-        setStatus('rejected');
-      });
-  }, [page]);
+
+    switch (filter) {
+      // case 'show all':
+      //   API.getUsers(page)
+      //     .then(data => {
+      //       if (data?.length) {
+      //         if (page === 1) {
+      //           setUsers(data);
+      //           setStatus('resolved');
+      //         } else {
+      //           setUsers(prev => [...prev, ...data]);
+      //           setStatus('resolved');
+      //         }
+      //       }
+      //       if (data?.length === 0) {
+      //         setUsers(prev => prev);
+      //         toast.success("Unfortunately you don't have any tweets yet!");
+      //         setStatus('resolved');
+      //       }
+      //     })
+      //     .catch(error => {
+      //       toast.error('Something went wrong 😥!');
+      //       setError(error);
+      //       setStatus('rejected');
+      //     });
+      //   break;
+
+      case 'follow':
+        API.getUsersFollow(page)
+          .then(data => {
+            if (data?.length) {
+              if (page === 1) {
+                setUsers(data);
+                setStatus('resolved');
+              } else {
+                setUsers(prev => [...prev, ...data]);
+                setStatus('resolved');
+              }
+            }
+            if (data?.length === 0) {
+              setUsers(prev => prev);
+              toast.success("Unfortunately you don't have any tweets yet!");
+              setStatus('resolved');
+            }
+          })
+          .catch(error => {
+            toast.error('Something went wrong 😥!');
+            setError(error);
+            setStatus('rejected');
+          });
+        break;
+
+      case 'following':
+        API.getUsersFollowing(page)
+          .then(data => {
+            if (data?.length) {
+              if (page === 1) {
+                setUsers(data);
+                setStatus('resolved');
+              } else {
+                setUsers(prev => [...prev, ...data]);
+                setStatus('resolved');
+              }
+            }
+            if (data?.length === 0) {
+              setUsers(prev => prev);
+              toast.success("Unfortunately you don't have any tweets yet!");
+              setStatus('resolved');
+            }
+          })
+          .catch(error => {
+            toast.error('Something went wrong 😥!');
+            setError(error);
+            setStatus('rejected');
+          });
+        break;
+
+      default:
+        API.getUsers(page)
+          .then(data => {
+            if (data?.length) {
+              if (page === 1) {
+                setUsers(data);
+                setStatus('resolved');
+              } else {
+                setUsers(prev => [...prev, ...data]);
+                setStatus('resolved');
+              }
+            }
+            if (data?.length === 0) {
+              setUsers(prev => prev);
+              toast.success("Unfortunately you don't have any tweets yet!");
+              setStatus('resolved');
+            }
+          })
+          .catch(error => {
+            toast.error('Something went wrong 😥!');
+            setError(error);
+            setStatus('rejected');
+          });
+    }
+  }, [filter, page]);
 
   const handleGoBack = () => {
     navigate('/');
@@ -69,7 +156,7 @@ function Tweets() {
   };
 
   const handleFilterChange = state => {
-    console.log('😎', state);
+    setFilter(state);
   };
 
   const availablePages = totalPages > page;

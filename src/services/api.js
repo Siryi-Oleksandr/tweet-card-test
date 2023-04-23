@@ -28,3 +28,29 @@ export async function editUser(data) {
   });
   return response.data;
 }
+
+export async function getUsersFollowing(page) {
+  const axiosParams = {
+    following: true,
+    limit: perPage,
+    page,
+  };
+
+  const response = await axios.get(URL, {
+    params: axiosParams,
+  });
+  return response.data;
+}
+
+export async function getUsersFollow(page) {
+  const axiosParams = {
+    following: false,
+    limit: perPage,
+    page,
+  };
+
+  const response = await axios.get(URL, {
+    params: axiosParams,
+  });
+  return response.data;
+}
