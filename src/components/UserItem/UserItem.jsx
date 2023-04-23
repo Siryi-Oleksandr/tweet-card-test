@@ -15,7 +15,7 @@ import * as API from '../../services/api';
 
 import Avatar from 'components/Avatar';
 import Logo from 'components/Logo';
-import { Btn } from 'components/Button/Button.styled';
+import { Btn } from 'components/Buttons/Buttons.styled';
 
 function UserItem({ userInfo }) {
   const { avatar, id, followers, following, tweets, user } = userInfo;

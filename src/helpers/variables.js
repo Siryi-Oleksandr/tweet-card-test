@@ -1,7 +1,7 @@
 export const pallete = {
   white: '#fff',
   priority: '#ebd8ff',
-  black: '#000',
+  black: '#373737',
   bgAccent: '#5736A3',
   accent: '#5CD3A8',
   gray: '#BDBDBD',

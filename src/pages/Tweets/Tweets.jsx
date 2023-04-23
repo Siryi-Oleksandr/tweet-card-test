@@ -3,29 +3,52 @@ import { useNavigate } from 'react-router-dom';
 import * as API from '../../services/api';
 import Loader from 'components/Loader/Loader';
 import UsersList from 'components/UsersList/UsersList';
-import { BiArrowBack } from 'react-icons/bi';
-import { BtnGoBack } from 'components/Button/Button.styled';
 import Error from 'components/Error';
 import toast from 'react-hot-toast';
+import { BtnLoadMore } from 'components/Buttons/BtnLoadMore';
+import { BtnGoBack } from 'components/Buttons/BtnGoBack';
+
+const perPage = 4;
 
 function Tweets() {
   const [users, setUsers] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    setStatus('pending');
+    // get all numbers of users
     API.getAllUsers()
       .then(data => {
         if (data?.length) {
-          setStatus('resolved');
-          setUsers(data);
+          setTotalPages(Math.ceil(data?.length / perPage));
+        }
+      })
+      .catch(error => {
+        setError(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    setStatus('pending');
+    API.getUsers(page)
+      .then(data => {
+        if (data?.length) {
+          if (page === 1) {
+            setUsers(data);
+            setStatus('resolved');
+          } else {
+            setUsers(prev => [...prev, ...data]);
+            setStatus('resolved');
+          }
         }
         if (data?.length === 0) {
-          setStatus('resolved');
-          setUsers(data);
+          setUsers(prev => prev);
           toast.success("Unfortunately you don't have any tweets yet!");
+          setStatus('resolved');
         }
       })
       .catch(error => {
@@ -33,21 +56,25 @@ function Tweets() {
         setError(error);
         setStatus('rejected');
       });
-  }, []);
+  }, [page]);
 
   const handleGoBack = () => {
     navigate('/');
   };
 
+  const loadMore = () => {
+    setPage(prevPage => prevPage + 1);
+  };
+
+  const availablePages = totalPages > page;
+
   return (
     <div>
-      <BtnGoBack type="button" onClick={handleGoBack}>
-        <BiArrowBack size="1.5em" />
-        Go back
-      </BtnGoBack>
+      <BtnGoBack onGoBack={handleGoBack} />
       {status === 'pending' && <Loader />}
       {status !== 'rejected' && <UsersList users={users} />}
       {status === 'rejected' && <Error error={error.message} />}
+      {availablePages && <BtnLoadMore onLoadMore={loadMore} />}
     </div>
   );
 }
