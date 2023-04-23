@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   AvatarWrapper,
   CardHeader,
@@ -65,5 +66,16 @@ function UserItem({ userInfo }) {
     </CardWrapper>
   );
 }
+
+UserItem.propTypes = {
+  userInfo: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+    followers: PropTypes.number.isRequired,
+    following: PropTypes.bool.isRequired,
+    tweets: PropTypes.number.isRequired,
+    user: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default UserItem;

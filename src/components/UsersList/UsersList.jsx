@@ -12,17 +12,17 @@ function UsersList({ users }) {
   );
 }
 
-// UsersList.propTypes = {
-//   movies: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.number.isRequired,
-//       poster_path: PropTypes.string,
-//       name: PropTypes.string,
-//       original_title: PropTypes.string,
-//       vote_average: PropTypes.number,
-//       vote_count: PropTypes.number,
-//     })
-//   ).isRequired,
-// };
+UsersList.propTypes = {
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      avatar: PropTypes.string.isRequired,
+      followers: PropTypes.number.isRequired,
+      following: PropTypes.bool.isRequired,
+      tweets: PropTypes.number.isRequired,
+      user: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 
 export default UsersList;

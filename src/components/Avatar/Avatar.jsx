@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Circle } from './Avatar.styled';
-// import avatar from '../../images/avatar.png';
 
 function Avatar({ avatar, userName }) {
   return (
@@ -9,5 +9,10 @@ function Avatar({ avatar, userName }) {
     </Circle>
   );
 }
+
+Avatar.propTypes = {
+  avatar: PropTypes.string.isRequired,
+  userName: PropTypes.string.isRequired,
+};
 
 export default Avatar;
