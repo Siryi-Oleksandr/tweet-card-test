@@ -5,9 +5,11 @@ import Loader from 'components/Loader/Loader';
 import UsersList from 'components/UsersList/UsersList';
 import { BiArrowBack } from 'react-icons/bi';
 import { BtnGoBack } from 'components/Button/Button.styled';
+import Error from 'components/Error';
+import toast from 'react-hot-toast';
 
 function Tweets() {
-  const [users, setUsers] = useState(null);
+  const [users, setUsers] = useState([]);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -20,8 +22,14 @@ function Tweets() {
           setStatus('resolved');
           setUsers(data);
         }
+        if (data?.length === 0) {
+          setStatus('resolved');
+          setUsers(data);
+          toast.success("Unfortunately you don't have any tweets yet!");
+        }
       })
       .catch(error => {
+        toast.error('Something went wrong 😥!');
         setError(error);
         setStatus('rejected');
       });
@@ -31,17 +39,15 @@ function Tweets() {
     navigate('/');
   };
 
-  if (!users) {
-    return <Loader />;
-  }
-
   return (
     <div>
       <BtnGoBack type="button" onClick={handleGoBack}>
         <BiArrowBack size="1.5em" />
         Go back
       </BtnGoBack>
-      <UsersList users={users} />
+      {status === 'pending' && <Loader />}
+      {status !== 'rejected' && <UsersList users={users} />}
+      {status === 'rejected' && <Error error={error.message} />}
     </div>
   );
 }
