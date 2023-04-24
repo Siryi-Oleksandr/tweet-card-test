@@ -10,6 +10,8 @@ import { BtnGoBack } from 'components/Buttons/BtnGoBack';
 import Filter from 'components/Filter/Filter';
 import { FilterSection } from './Tweets.styled';
 import CardsPerPage from 'components/CardsPerPage';
+// import FilterByName from 'components/FilterByName/FilterByName';
+import { Input, Label } from 'components/FilterByName/FilterByName.styled';
 
 function Tweets() {
   const [users, setUsers] = useState([]);
@@ -18,6 +20,7 @@ function Tweets() {
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('show all');
+  const [filterByName, setFilterByName] = useState('');
   const [cardsPerPage, setCardsPerPage] = useState(4);
 
   const navigate = useNavigate();
@@ -28,7 +31,7 @@ function Tweets() {
 
     switch (filter) {
       case 'follow':
-        API.getUsersFollow(page, cardsPerPage, abortConroller)
+        API.getUsersFollow(filterByName, page, cardsPerPage, abortConroller)
           .then(data => {
             if (data?.length) {
               if (page === 1) {
@@ -65,7 +68,7 @@ function Tweets() {
         break;
 
       case 'following':
-        API.getUsersFollowing(page, cardsPerPage, abortConroller)
+        API.getUsersFollowing(filterByName, page, cardsPerPage, abortConroller)
           .then(data => {
             if (data?.length) {
               if (page === 1) {
@@ -102,7 +105,7 @@ function Tweets() {
         break;
 
       default:
-        API.getUsers(page, cardsPerPage, abortConroller)
+        API.getUsers(filterByName, page, cardsPerPage, abortConroller)
           .then(data => {
             if (data?.length) {
               if (page === 1) {
@@ -141,7 +144,7 @@ function Tweets() {
     return () => {
       abortConroller.abort();
     };
-  }, [cardsPerPage, filter, page]);
+  }, [cardsPerPage, filterByName, filter, page]);
 
   const handleGoBack = () => {
     navigate('/');
@@ -152,6 +155,7 @@ function Tweets() {
   };
 
   const handleFilterChange = event => {
+    setFilterByName('');
     setPage(1);
     setFilter(event.target.value);
   };
@@ -159,6 +163,10 @@ function Tweets() {
   const handleCardPerPage = event => {
     setPage(1);
     setCardsPerPage(Number(event.target.value));
+  };
+
+  const handleFilterByName = event => {
+    setFilterByName(event.target.value);
   };
 
   const availablePages = totalPages > page;
@@ -171,6 +179,15 @@ function Tweets() {
           perPage={cardsPerPage}
           onPerPageChange={handleCardPerPage}
         />
+        <Label>
+          Filter by name:
+          <Input
+            type="text"
+            value={filterByName}
+            onChange={handleFilterByName}
+          />
+        </Label>
+
         <Filter filter={filter} onFilterChange={handleFilterChange} />
       </FilterSection>
       {status === 'pending' && <Loader />}
