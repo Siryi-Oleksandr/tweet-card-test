@@ -9,7 +9,7 @@ import { BtnLoadMore } from 'components/Buttons/BtnLoadMore';
 import { BtnGoBack } from 'components/Buttons/BtnGoBack';
 import Filter from 'components/Filter/Filter';
 import { FilterSection } from './Tweets.styled';
-import CardsPerPage from 'components/CardsPerPage/CardsPerPage';
+import CardsPerPage from 'components/CardsPerPage';
 
 function Tweets() {
   const [users, setUsers] = useState([]);
