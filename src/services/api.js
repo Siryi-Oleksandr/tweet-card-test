@@ -9,10 +9,11 @@ export async function getAllUsers() {
   return response.data;
 }
 
-export async function getUsers(page) {
+export async function getUsers(page, controller) {
   const axiosParams = {
     limit: perPage,
     page,
+    signal: controller.signal,
   };
 
   const response = await axios.get(URL, {
@@ -29,11 +30,12 @@ export async function editUser(data) {
   return response.data;
 }
 
-export async function getUsersFollowing(page) {
+export async function getUsersFollowing(page, controller) {
   const axiosParams = {
     following: true,
     limit: perPage,
     page,
+    signal: controller.signal,
   };
 
   const response = await axios.get(URL, {
@@ -53,11 +55,12 @@ export async function getAllFollowingUsers() {
   return response.data;
 }
 
-export async function getUsersFollow(page) {
+export async function getUsersFollow(page, controller) {
   const axiosParams = {
     following: false,
     limit: perPage,
     page,
+    signal: controller.signal,
   };
 
   const response = await axios.get(URL, {

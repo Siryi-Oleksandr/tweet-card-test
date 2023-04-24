@@ -22,25 +22,26 @@ function Tweets() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // get all numbers of users
-    API.getAllUsers()
-      .then(data => {
-        if (data?.length) {
-          setTotalPages(Math.ceil(data?.length / perPage));
-        }
-      })
-      .catch(error => {
-        setError(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   // get all numbers of users
+  //   API.getAllUsers()
+  //     .then(data => {
+  //       if (data?.length) {
+  //         setTotalPages(Math.ceil(data?.length / perPage));
+  //       }
+  //     })
+  //     .catch(error => {
+  //       setError(error);
+  //     });
+  // }, []);
 
   useEffect(() => {
     setStatus('pending');
+    const abortConroller = new AbortController();
 
     switch (filter) {
       case 'follow':
-        API.getUsersFollow(page)
+        API.getUsersFollow(page, abortConroller)
           .then(data => {
             if (data?.length) {
               if (page === 1) {
@@ -77,7 +78,7 @@ function Tweets() {
         break;
 
       case 'following':
-        API.getUsersFollowing(page)
+        API.getUsersFollowing(page, abortConroller)
           .then(data => {
             if (data?.length) {
               if (page === 1) {
@@ -114,7 +115,7 @@ function Tweets() {
         break;
 
       default:
-        API.getUsers(page)
+        API.getUsers(page, abortConroller)
           .then(data => {
             if (data?.length) {
               if (page === 1) {
@@ -149,6 +150,10 @@ function Tweets() {
             setStatus('rejected');
           });
     }
+
+    return () => {
+      abortConroller.abort();
+    };
   }, [filter, page]);
 
   const handleGoBack = () => {
