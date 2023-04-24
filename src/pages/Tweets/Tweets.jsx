@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import { BtnLoadMore } from 'components/Buttons/BtnLoadMore';
 import { BtnGoBack } from 'components/Buttons/BtnGoBack';
 import Filter from 'components/Filter/Filter';
+import { FilterSection } from './Tweets.styled';
 
 const perPage = 4;
 
@@ -155,16 +156,18 @@ function Tweets() {
     setPage(prevPage => prevPage + 1);
   };
 
-  const handleFilterChange = state => {
-    setFilter(state);
+  const handleFilterChange = filterState => {
+    setFilter(filterState);
   };
 
   const availablePages = totalPages > page;
 
   return (
     <div>
-      <BtnGoBack onGoBack={handleGoBack} />
-      <Filter onFilterChange={handleFilterChange} />
+      <FilterSection>
+        <BtnGoBack onGoBack={handleGoBack} />
+        <Filter onFilterChange={handleFilterChange} />
+      </FilterSection>
       {status === 'pending' && <Loader />}
       {status !== 'rejected' && <UsersList users={users} />}
       {status === 'rejected' && <Error error={error.message} />}

@@ -6,3 +6,5 @@ export const pallete = {
   accent: '#5CD3A8',
   gray: '#BDBDBD',
 };
+
+export const animation = '250ms ease-in-out';

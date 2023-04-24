@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { pallete } from '../../helpers/variables';
+import { pallete, animation } from '../../helpers/variables';
 
 export const Btn = styled.button`
   padding: 14px 28px;
@@ -24,7 +24,7 @@ export const Btn = styled.button`
   color: ${pallete.black};
   cursor: pointer;
 
-  transition: box-shadow 250ms ease-in-out, transform 250ms ease-in-out;
+  transition: box-shadow ${animation}, transform ${animation};
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
@@ -51,7 +51,7 @@ export const BtnGoBackStyled = styled.button`
   color: ${pallete.black};
   cursor: pointer;
 
-  transition: transform 250ms ease-in-out;
+  transition: transform ${animation};
 
   &:hover {
     transform: scale(1.05);
@@ -86,11 +86,16 @@ export const BtnLoadMoreStyled = styled.button`
   color: ${pallete.black};
   cursor: pointer;
 
-  transition: box-shadow 250ms ease-in-out, transform 250ms ease-in-out;
+  transition: box-shadow ${animation}, transform ${animation},
+    background-color ${animation};
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
       rgba(0, 0, 0, 0.22) 0px 15px 12px;
     transform: scale(1.03);
+  }
+
+  &:active {
+    background-color: ${pallete.accent};
   }
 `;

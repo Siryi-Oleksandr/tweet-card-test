@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Label, Select } from './Filter.styled';
 
 function Filter({ onFilterChange }) {
   const [filter, setFilter] = useState('show all');
@@ -12,16 +13,14 @@ function Filter({ onFilterChange }) {
   };
 
   return (
-    <div>
-      <label>
-        Filter:
-        <select value={filter} onChange={handleFilterChange}>
-          <option value="show all">Show all</option>
-          <option value="follow">Follow</option>
-          <option value="following">Following</option>
-        </select>
-      </label>
-    </div>
+    <Label>
+      Filter by status:
+      <Select value={filter} onChange={handleFilterChange}>
+        <option value="show all">Show all</option>
+        <option value="follow">Follow</option>
+        <option value="following">Following</option>
+      </Select>
+    </Label>
   );
 }
 
