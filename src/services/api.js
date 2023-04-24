@@ -1,11 +1,20 @@
 import axios from 'axios';
 
-// const perPage = 4;
-
 const URL = 'https://642278cc77e7062b3e1a616c.mockapi.io/api/v1/users';
 
-export async function getAllUsers() {
-  const response = await axios.get(URL);
+export async function getAllUsers(query, controller) {
+  const axiosParams = query
+    ? {
+        user: query,
+        signal: controller.signal,
+      }
+    : {
+        signal: controller.signal,
+      };
+
+  const response = await axios.get(URL, {
+    params: axiosParams,
+  });
   return response.data;
 }
 

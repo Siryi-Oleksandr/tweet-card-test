@@ -113,7 +113,7 @@ function Tweets() {
                 setUsers(data);
 
                 // get all numbers of users
-                API.getAllUsers()
+                API.getAllUsers(filterByName, abortConroller)
                   .then(data => {
                     if (data?.length) {
                       setTotalPages(Math.ceil(data?.length / cardsPerPage));

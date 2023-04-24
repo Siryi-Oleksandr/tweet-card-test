@@ -46,7 +46,9 @@ $ npm start
 
 You can freely move between pages. On Tweets page choose any interesting user
 and subscribe and follow it. Or conversely, you can unsubscribe from anyone.
-Also you can filter users by name or status of the subscription.
+Also you can filter users by name or status of the subscription. You have many
+variants to quickly find some user using filters by name and status of the
+users.
 
 ---
 
@@ -54,7 +56,7 @@ Also you can filter users by name or status of the subscription.
 
 The app uses the MockAPI service to simulate a backend. The users resource has
 been created and the user object has the following fields: id, user, tweets,
-followers, avatar.
+followers, avatar. Pagination, filtering implemented through the backend.
 
 ---
 

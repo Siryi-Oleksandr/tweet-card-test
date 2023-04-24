@@ -54,8 +54,6 @@ export const CardHeader = styled.div`
   background-position: 50% 50%;
   background-repeat: no-repeat;
 
-  /* border: 2px solid orange;
-  background-color: transparent; */
 `;
 
 export const Line = styled.hr`
@@ -73,7 +71,6 @@ export const UserName = styled.p`
   margin-top: 42px;
   max-width: 340px;
   height: 24px;
-  /* overflow-x: hidden; */
 
   font-family: 'Montserrat';
   font-weight: 500;
