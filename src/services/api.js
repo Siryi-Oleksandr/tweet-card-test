@@ -89,7 +89,6 @@ export async function getUsersFollow(query, page, perPage, controller) {
   const response = await axios.get(URL, {
     params: axiosParams,
   });
-  console.log(response.data);
   return response.data;
 }
 
@@ -98,20 +97,6 @@ export async function getAllFollowUsers() {
     following: false,
   };
 
-  const response = await axios.get(URL, {
-    params: axiosParams,
-  });
-  return response.data;
-}
-
-export async function getUsersByQuery(query, page, perPage) {
-  const axiosParams = {
-    limit: perPage,
-    page,
-    user: query,
-    // signal: controller.signal,
-  };
-  console.log('query from API', query);
   const response = await axios.get(URL, {
     params: axiosParams,
   });

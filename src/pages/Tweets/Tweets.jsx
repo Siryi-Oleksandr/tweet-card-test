@@ -10,8 +10,7 @@ import { BtnGoBack } from 'components/Buttons/BtnGoBack';
 import Filter from 'components/Filter/Filter';
 import { FilterSection } from './Tweets.styled';
 import CardsPerPage from 'components/CardsPerPage';
-// import FilterByName from 'components/FilterByName/FilterByName';
-import { Input, Label } from 'components/FilterByName/FilterByName.styled';
+import FilterByName from 'components/FilterByName/FilterByName';
 
 function Tweets() {
   const [users, setUsers] = useState([]);
@@ -168,8 +167,8 @@ function Tweets() {
     setCardsPerPage(Number(event.target.value));
   };
 
-  const handleFilterByName = event => {
-    setFilterByName(event.target.value);
+  const handleFilterByName = query => {
+    setFilterByName(query);
   };
 
   const availablePages = totalPages > page;
@@ -183,14 +182,7 @@ function Tweets() {
           onPerPageChange={handleCardPerPage}
         />
         {filter === 'show all' && (
-          <Label>
-            Filter by name:
-            <Input
-              type="text"
-              value={filterByName}
-              onChange={handleFilterByName}
-            />
-          </Label>
+          <FilterByName onFilterByName={handleFilterByName} />
         )}
 
         <Filter filter={filter} onFilterChange={handleFilterChange} />
