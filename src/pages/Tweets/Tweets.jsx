@@ -9,8 +9,7 @@ import { BtnLoadMore } from 'components/Buttons/BtnLoadMore';
 import { BtnGoBack } from 'components/Buttons/BtnGoBack';
 import Filter from 'components/Filter/Filter';
 import { FilterSection } from './Tweets.styled';
-
-const perPage = 4;
+import CardsPerPage from 'components/CardsPerPage/CardsPerPage';
 
 function Tweets() {
   const [users, setUsers] = useState([]);
@@ -19,21 +18,9 @@ function Tweets() {
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('show all');
+  const [cardsPerPage, setCardsPerPage] = useState(4);
 
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   // get all numbers of users
-  //   API.getAllUsers()
-  //     .then(data => {
-  //       if (data?.length) {
-  //         setTotalPages(Math.ceil(data?.length / perPage));
-  //       }
-  //     })
-  //     .catch(error => {
-  //       setError(error);
-  //     });
-  // }, []);
 
   useEffect(() => {
     setStatus('pending');
@@ -41,7 +28,7 @@ function Tweets() {
 
     switch (filter) {
       case 'follow':
-        API.getUsersFollow(page, abortConroller)
+        API.getUsersFollow(page, cardsPerPage, abortConroller)
           .then(data => {
             if (data?.length) {
               if (page === 1) {
@@ -51,7 +38,7 @@ function Tweets() {
                 API.getAllFollowUsers()
                   .then(data => {
                     if (data?.length) {
-                      setTotalPages(Math.ceil(data?.length / perPage));
+                      setTotalPages(Math.ceil(data?.length / cardsPerPage));
                     }
                   })
                   .catch(error => {
@@ -78,7 +65,7 @@ function Tweets() {
         break;
 
       case 'following':
-        API.getUsersFollowing(page, abortConroller)
+        API.getUsersFollowing(page, cardsPerPage, abortConroller)
           .then(data => {
             if (data?.length) {
               if (page === 1) {
@@ -88,7 +75,7 @@ function Tweets() {
                 API.getAllFollowingUsers()
                   .then(data => {
                     if (data?.length) {
-                      setTotalPages(Math.ceil(data?.length / perPage));
+                      setTotalPages(Math.ceil(data?.length / cardsPerPage));
                     }
                   })
                   .catch(error => {
@@ -115,7 +102,7 @@ function Tweets() {
         break;
 
       default:
-        API.getUsers(page, abortConroller)
+        API.getUsers(page, cardsPerPage, abortConroller)
           .then(data => {
             if (data?.length) {
               if (page === 1) {
@@ -125,7 +112,7 @@ function Tweets() {
                 API.getAllUsers()
                   .then(data => {
                     if (data?.length) {
-                      setTotalPages(Math.ceil(data?.length / perPage));
+                      setTotalPages(Math.ceil(data?.length / cardsPerPage));
                     }
                   })
                   .catch(error => {
@@ -154,7 +141,7 @@ function Tweets() {
     return () => {
       abortConroller.abort();
     };
-  }, [filter, page]);
+  }, [cardsPerPage, filter, page]);
 
   const handleGoBack = () => {
     navigate('/');
@@ -169,12 +156,21 @@ function Tweets() {
     setFilter(event.target.value);
   };
 
+  const handleCardPerPage = event => {
+    setPage(1);
+    setCardsPerPage(Number(event.target.value));
+  };
+
   const availablePages = totalPages > page;
 
   return (
     <div>
       <FilterSection>
         <BtnGoBack onGoBack={handleGoBack} />
+        <CardsPerPage
+          perPage={cardsPerPage}
+          onPerPageChange={handleCardPerPage}
+        />
         <Filter filter={filter} onFilterChange={handleFilterChange} />
       </FilterSection>
       {status === 'pending' && <Loader />}

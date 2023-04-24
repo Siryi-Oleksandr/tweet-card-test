@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const perPage = 4;
+// const perPage = 4;
 
 const URL = 'https://642278cc77e7062b3e1a616c.mockapi.io/api/v1/users';
 
@@ -9,7 +9,7 @@ export async function getAllUsers() {
   return response.data;
 }
 
-export async function getUsers(page, controller) {
+export async function getUsers(page, perPage, controller) {
   const axiosParams = {
     limit: perPage,
     page,
@@ -30,7 +30,7 @@ export async function editUser(data) {
   return response.data;
 }
 
-export async function getUsersFollowing(page, controller) {
+export async function getUsersFollowing(page, perPage, controller) {
   const axiosParams = {
     following: true,
     limit: perPage,
@@ -55,7 +55,7 @@ export async function getAllFollowingUsers() {
   return response.data;
 }
 
-export async function getUsersFollow(page, controller) {
+export async function getUsersFollow(page, perPage, controller) {
   const axiosParams = {
     following: false,
     limit: perPage,
