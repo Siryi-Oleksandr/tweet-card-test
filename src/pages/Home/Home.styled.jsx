@@ -23,8 +23,6 @@ export const HomeWrapper = styled.div`
 export const HomeTitle = styled.h1`
   max-width: 600px;
   font-family: 'Montserrat';
-  /* font-style: normal;
-  font-weight: 600; */
   font-size: 28px;
   line-height: calc(40 / 28);
 `;
@@ -39,6 +37,6 @@ export const HomeDescribe = styled.p`
 `;
 
 export const LinkStyled = styled(Link)`
-  color: blue;
+  color: ${pallete.link};
   text-decoration: underline;
 `;
