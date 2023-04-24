@@ -55,8 +55,9 @@ function Tweets() {
               }
             }
             if (data?.length === 0) {
-              setUsers(prev => prev);
-              toast.success("Unfortunately you don't have any tweets yet!");
+              setUsers([]);
+              setTotalPages(0);
+              toast.success("Unfortunately we don't find any tweets!");
               setStatus('resolved');
             }
           })
@@ -92,8 +93,9 @@ function Tweets() {
               }
             }
             if (data?.length === 0) {
-              setUsers(prev => prev);
-              toast.success("Unfortunately you don't have any tweets yet!");
+              setUsers([]);
+              setTotalPages(0);
+              toast.success("Unfortunately we don't find any tweets!");
               setStatus('resolved');
             }
           })
@@ -129,8 +131,9 @@ function Tweets() {
               }
             }
             if (data?.length === 0) {
-              setUsers(prev => prev);
-              toast.success("Unfortunately you don't have any tweets yet!");
+              setUsers([]);
+              setTotalPages(0);
+              toast.success("Unfortunately we don't find any tweets!");
               setStatus('resolved');
             }
           })
@@ -179,14 +182,16 @@ function Tweets() {
           perPage={cardsPerPage}
           onPerPageChange={handleCardPerPage}
         />
-        <Label>
-          Filter by name:
-          <Input
-            type="text"
-            value={filterByName}
-            onChange={handleFilterByName}
-          />
-        </Label>
+        {filter === 'show all' && (
+          <Label>
+            Filter by name:
+            <Input
+              type="text"
+              value={filterByName}
+              onChange={handleFilterByName}
+            />
+          </Label>
+        )}
 
         <Filter filter={filter} onFilterChange={handleFilterChange} />
       </FilterSection>
