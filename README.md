@@ -7,7 +7,7 @@
 _The application consist from Home and Tweets pages. Home page is page for
 welcome and general information. The Tweets page loads user cards from the
 database. By clicking on the Follow or Following buttons in the card, you can
-subscribe or nsubscribe to a user. There are also different types of user
+subscribe or unsubscribe to a user. There are also different types of user
 filtering, by type and name._
 
 ---

@@ -15,7 +15,12 @@ function FilterByName({ onFilterByName }) {
   return (
     <Label>
       Filter by name:
-      <Input type="text" value={filter} onChange={handleFilter} />
+      <Input
+        type="text"
+        value={filter}
+        placeholder="Kevin"
+        onChange={handleFilter}
+      />
     </Label>
   );
 }
