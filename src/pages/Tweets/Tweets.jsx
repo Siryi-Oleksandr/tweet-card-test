@@ -169,7 +169,6 @@ function Tweets() {
   };
 
   const handleFilterChange = event => {
-    // setUsers([]);
     setPage(1);
     setFilter(event.target.value);
   };
