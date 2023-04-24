@@ -6,6 +6,7 @@ function Filter({ onFilterChange }) {
 
   useEffect(() => {
     onFilterChange(filter);
+    console.log('refresh filter');
   }, [filter, onFilterChange]);
 
   const handleFilterChange = event => {

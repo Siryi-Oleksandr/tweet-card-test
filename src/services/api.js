@@ -42,11 +42,33 @@ export async function getUsersFollowing(page) {
   return response.data;
 }
 
+export async function getAllFollowingUsers() {
+  const axiosParams = {
+    following: true,
+  };
+
+  const response = await axios.get(URL, {
+    params: axiosParams,
+  });
+  return response.data;
+}
+
 export async function getUsersFollow(page) {
   const axiosParams = {
     following: false,
     limit: perPage,
     page,
+  };
+
+  const response = await axios.get(URL, {
+    params: axiosParams,
+  });
+  return response.data;
+}
+
+export async function getAllFollowUsers() {
+  const axiosParams = {
+    following: false,
   };
 
   const response = await axios.get(URL, {

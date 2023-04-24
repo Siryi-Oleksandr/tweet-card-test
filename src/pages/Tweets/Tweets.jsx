@@ -22,13 +22,13 @@ function Tweets() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    API.getUsersFollowing().then(data => {
-      if (data?.length) {
-        console.log('super following users', data);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   API.getUsersFollowing().then(data => {
+  //     if (data?.length) {
+  //       console.log('super following users', data);
+  //     }
+  //   });
+  // }, []);
 
   useEffect(() => {
     // get all numbers of users
@@ -47,37 +47,24 @@ function Tweets() {
     setStatus('pending');
 
     switch (filter) {
-      // case 'show all':
-      //   API.getUsers(page)
-      //     .then(data => {
-      //       if (data?.length) {
-      //         if (page === 1) {
-      //           setUsers(data);
-      //           setStatus('resolved');
-      //         } else {
-      //           setUsers(prev => [...prev, ...data]);
-      //           setStatus('resolved');
-      //         }
-      //       }
-      //       if (data?.length === 0) {
-      //         setUsers(prev => prev);
-      //         toast.success("Unfortunately you don't have any tweets yet!");
-      //         setStatus('resolved');
-      //       }
-      //     })
-      //     .catch(error => {
-      //       toast.error('Something went wrong 😥!');
-      //       setError(error);
-      //       setStatus('rejected');
-      //     });
-      //   break;
-
       case 'follow':
         API.getUsersFollow(page)
           .then(data => {
             if (data?.length) {
               if (page === 1) {
                 setUsers(data);
+
+                // get all numbers of necessary users
+                API.getAllFollowUsers()
+                  .then(data => {
+                    if (data?.length) {
+                      setTotalPages(Math.ceil(data?.length / perPage));
+                    }
+                  })
+                  .catch(error => {
+                    setError(error);
+                  });
+
                 setStatus('resolved');
               } else {
                 setUsers(prev => [...prev, ...data]);
@@ -103,6 +90,18 @@ function Tweets() {
             if (data?.length) {
               if (page === 1) {
                 setUsers(data);
+
+                // get all numbers of users
+                API.getAllFollowingUsers()
+                  .then(data => {
+                    if (data?.length) {
+                      setTotalPages(Math.ceil(data?.length / perPage));
+                    }
+                  })
+                  .catch(error => {
+                    setError(error);
+                  });
+
                 setStatus('resolved');
               } else {
                 setUsers(prev => [...prev, ...data]);
@@ -128,6 +127,18 @@ function Tweets() {
             if (data?.length) {
               if (page === 1) {
                 setUsers(data);
+
+                // get all numbers of users
+                API.getAllUsers()
+                  .then(data => {
+                    if (data?.length) {
+                      setTotalPages(Math.ceil(data?.length / perPage));
+                    }
+                  })
+                  .catch(error => {
+                    setError(error);
+                  });
+
                 setStatus('resolved');
               } else {
                 setUsers(prev => [...prev, ...data]);
@@ -157,6 +168,8 @@ function Tweets() {
   };
 
   const handleFilterChange = filterState => {
+    // setUsers([]);
+    setPage(1);
     setFilter(filterState);
   };
 
