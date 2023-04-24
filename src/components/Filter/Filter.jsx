@@ -1,22 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Label, Select } from './Filter.styled';
 
-function Filter({ onFilterChange }) {
-  const [filter, setFilter] = useState('show all');
-
-  useEffect(() => {
-    onFilterChange(filter);
-    console.log('refresh filter');
-  }, [filter, onFilterChange]);
-
-  const handleFilterChange = event => {
-    setFilter(event.target.value);
-  };
-
+function Filter({ filter, onFilterChange }) {
   return (
     <Label>
       Filter by status:
-      <Select value={filter} onChange={handleFilterChange}>
+      <Select value={filter} onChange={onFilterChange}>
         <option value="show all">Show all</option>
         <option value="follow">Follow</option>
         <option value="following">Following</option>

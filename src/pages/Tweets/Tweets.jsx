@@ -9,7 +9,6 @@ import { BtnLoadMore } from 'components/Buttons/BtnLoadMore';
 import { BtnGoBack } from 'components/Buttons/BtnGoBack';
 import Filter from 'components/Filter/Filter';
 import { FilterSection } from './Tweets.styled';
-import { Label, Select } from 'components/Filter/Filter.styled';
 
 const perPage = 4;
 
@@ -22,14 +21,6 @@ function Tweets() {
   const [filter, setFilter] = useState('show all');
 
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   API.getUsersFollowing().then(data => {
-  //     if (data?.length) {
-  //       console.log('super following users', data);
-  //     }
-  //   });
-  // }, []);
 
   useEffect(() => {
     // get all numbers of users
@@ -179,14 +170,7 @@ function Tweets() {
     <div>
       <FilterSection>
         <BtnGoBack onGoBack={handleGoBack} />
-        <Label>
-          Filter by status:
-          <Select value={filter} onChange={handleFilterChange}>
-            <option value="show all">Show all</option>
-            <option value="follow">Follow</option>
-            <option value="following">Following</option>
-          </Select>
-        </Label>
+        <Filter filter={filter} onFilterChange={handleFilterChange} />
       </FilterSection>
       {status === 'pending' && <Loader />}
       {status !== 'rejected' && <UsersList users={users} />}
